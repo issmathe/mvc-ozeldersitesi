@@ -1,0 +1,33 @@
+﻿@model Ogretmen
+<!-- Bu sayfa yeni eklenenen öğretmenin kayıt başarılı oluşturuldu şeklinde göreceği sayfadır -->
+<div class="container mt-5">
+    <h2>Hoşgeldiniz...</h2>
+    <h2 class="mb-4">Kayıt Başarıyla Oluşturuldu.</h2>
+
+
+    <div class="card">
+        <div class="card-header">
+            Öğretmen Bilgileri
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="@Model.ResimUrl" alt="Öğretmen Resmi" class="img-fluid mb-3" />
+                </div>
+                <div class="col-md-8">
+                    <p><strong>Öğretmen Adı:</strong> @Model.OgretmenAdi</p>
+                    <p><strong>Öğretmen Soyadı:</strong> @Model.OgretmenSoyadi</p>
+                    <p><strong>Branşı:</strong> @Model.Bransi</p>
+                    <p><strong>Üniversite:</strong> @Model.Universite</p>
+                    <p><strong>Şehir:</strong> @Model.Sehir</p>
+                    <p><strong>Telefon:</strong> @Model.Telefon</p>
+                    <p><strong>Ücret:</strong> @Model.Ucret</p>
+                    <p><strong>Açıklama:</strong> @Model.Aciklama</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a asp-controller="Ogretmen" asp-action="DuzenleOgretmen" asp-route-id="@Model.Id" class="btn btn-primary">Düzenle</a>
+        </div>
+    </div>
+</div>

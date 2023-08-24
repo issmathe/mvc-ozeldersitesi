@@ -1,0 +1,49 @@
+﻿<!-- Bu sayfa eklenen tüm öğretmenlerin sayfasıdır. Bu sayfa admin tarafından görünecektir. -->
+@model List<Ogretmen>
+@{
+    ViewData["Title"] = "Öğretmen Listesi";
+}
+
+<style>
+    .card {
+        height: 100%; 
+    }
+
+    .card-img-top {
+        max-height: 200px; 
+        object-fit: cover;
+    }
+</style>
+
+<div class="container mt-4">
+    <h2 class="text-center">Öğretmen Listesi</h2>
+    <div class="row">
+        @foreach (var ogretmen in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="@ogretmen.ResimUrl" class="card-img-top img-fluid" alt="Öğretmen Fotoğrafı">
+                    <div class="card-body">
+                        <h5 class="card-title">@ogretmen.OgretmenAdi @ogretmen.OgretmenSoyadi</h5>
+                        <p class="card-text"><strong>Branşı:</strong> @ogretmen.Bransi</p>
+                        <p class="card-text"><strong>Üniversite:</strong> @ogretmen.Universite</p>
+                        <p class="card-text"><strong>Şehir:</strong> @ogretmen.Sehir</p>
+                        <p class="card-text"><strong>Telefon:</strong> <a href="tel:@ogretmen.Telefon">@ogretmen.Telefon</a></p>
+                        <p class="card-text"><strong>Ücret:</strong> @ogretmen.Ucret</p>
+                        <p class="card-text"><strong>Açıklama:</strong> @ogretmen.Aciklama</p>
+
+                        <!-- Sil kısmı -->
+                        <form method="post" action="@Url.Action("Sil", "Ogretmen")" onsubmit="return confirm('Bu öğretmeni silmek istediğinizden emin misiniz?')">
+                            <input type="hidden" name="ogretmenId" value="@ogretmen.Id" />
+                            <button type="submit" class="btn btn-danger">Sil</button>
+                        </form>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

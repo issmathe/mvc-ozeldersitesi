@@ -1,0 +1,76 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Hoşgeldiniz";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="hesap" method="post">
+                <h2>Yerel bir hesap kullanarak giriş yapın.</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="adiniz@ornek.com" />
+                    <label asp-for="Input.Email" class="form-label">E-posta</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="şifre" />
+                    <label asp-for="Input.Password" class="form-label">Şifre</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="checkbox mb-3">
+                    <label asp-for="Input.RememberMe" class="form-label">
+                        <input class="form-check-input" asp-for="Input.RememberMe" />
+                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    </label>
+                </div>
+                <div>
+                    <button id="giris-submit" type="submit" class="w-100 btn btn-lg btn-primary">Giriş Yap</button>
+                </div>
+                <div>
+                    <p>
+                        <a id="sifremi-unuttum" asp-page="./SifremiUnuttum">Şifrenizi mi unuttunuz?</a>
+                    </p>
+                    <p>
+                        <a asp-page="./KayitOl" asp-route-returnUrl="@Model.ReturnUrl">Yeni bir kullanıcı olarak kaydolun</a>
+                    </p>
+                    <p>
+                        <a id="onay-eposta" asp-page="./EpostaOnayiYenidenGonder">E-posta onayını yeniden gönder</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+        <section>
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+   
+                }
+                else
+                {
+                    <form id="dıs-hesap" asp-page="./DısHesapGiris" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var saglayici in Model.ExternalLogins!)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="saglayici" value="@saglayici.Name" title="Hesabınıza @saglayici.DisplayName hesabınızı kullanarak giriş yapın">@saglayici.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

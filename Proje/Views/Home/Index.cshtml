@@ -1,0 +1,63 @@
+﻿<h1 class="text-center" style="color:blue">Özel Ders Bulma Sitemize Hoşgeldiniz</h1>
+<form method="post" action="@Url.Action("OgretmenBul", "Ogretmen")" onsubmit="return validateForm()" class="my-4">
+<div>
+        <div class="container col-md-6">
+            <!-- Ders Seçimi -->
+            <h1 class="mt-4 text-center">Ders Seçimi</h1>
+            <div class="form-group mb-4">
+                <label class="form-label">Ders Almak İstediğiniz Alanı Seçiniz</label>
+                <select class="form-select p-3" name="ders">
+                    <option value="">Ders Seçiniz</option>
+                    @foreach (var ders in Proje.Models.Dersler.Liste)
+                    {
+                        <option value="@ders">@ders</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="container col-md-6">
+            <!-- Şehir Seçimi -->
+            <h1 class="mt-4 text-center">Şehir Seçimi</h1>
+            <div class="form-group mb-4">
+                <label class="form-label">Ders Almak İstediğiniz Şehiri Seçiniz</label>
+                <select class="form-select p-3" name="sehir">
+                    <option value="">Şehir Seçiniz</option>
+                    @foreach (var sehir in Proje.Models.Iller.Liste)
+                    {
+                        <option value="@sehir">@sehir</option>
+                    }
+                </select>
+            </div>
+        </div>
+</div>
+    <div class="container text-center">
+        <button type="submit" class="btn btn-primary btn-lg">Öğretmen Bul</button>
+        <p id="alert" style="color: red;"></p> <!-- Uyarı Mesajı -->
+    </div>
+</form>
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <h4 style="color:red">***Değerli Öğretmenlerimiz Ders Vermek İsterseniz Lütfen Kayıt Olunuz***</h4>
+}
+else
+{
+    <h5 style="color:red">!!! Değerli öğretmenimiz özel ders vermek isterseniz <a href="@Url.Action("OgretmenEkle", "Ogretmen")">"Öğretmen Kayıt"</a> linkine tıklayarak, gerekli formları doldurabilirsiniz. !!!</h5>
+}
+
+
+
+<script>
+    function validateForm() {
+        var ders = document.getElementsByName("ders")[0].value;
+        var sehir = document.getElementsByName("sehir")[0].value;
+
+        if (ders === "" || sehir === "") {
+            document.getElementById("alert").textContent = "Lütfen ders ve şehir seçimini tamamlayınız.";
+            return false; // Formun gönderimini engeller
+        } else {
+            document.getElementById("alert").textContent = ""; // uyarıyı temizler
+            return true; // Formu gönderir
+        }
+    }
+</script>

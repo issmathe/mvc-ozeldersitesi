@@ -1,0 +1,73 @@
+﻿@model Ogretmen
+
+
+<!-- Bu sayfa yeni ekleme yapmak isteyen öğretmen sayfasıdır -->
+<div class="container mt-5">
+    <h2 class="mb-4">Öğretmen Kayıt Formu</h2>
+
+    <form  method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label">Öğretmen Adı:</label>
+            <input asp-for="OgretmenAdi" class="form-control" id="OgretmenAdi" name="OgretmenAdi" required autocomplete="off">
+        </div>
+
+        <div class="mb-3">
+            <label  class="form-label">Öğretmen Soyadı:</label>
+            <input asp-for="OgretmenSoyadi" class="form-control" id="OgretmenSoyadi" name="OgretmenSoyadi" required autocomplete="off">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Ders Vermek İstediğiniz Alanı Seçiniz:</label>
+            <select class="form-select" name="Bransi">
+                @foreach (var ders in Proje.Models.Dersler.Liste)
+                {
+                    <option value="@ders">@ders</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Üniversite:</label>
+            <select class="form-select" name="Universite">
+                @foreach (var Univ in Proje.Models.Universiteler.Liste)
+                {
+                    <option value="@Univ">@Univ</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Şehir:</label>
+            <select class="form-select" name="Sehir">
+                @foreach (var sehir in Proje.Models.Iller.Liste)
+                {
+                    <option value="@sehir">@sehir</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label  class="form-label">Telefon:</label>
+            <input asp-for="Telefon" class="form-control" id="Telefon" name="Telefon" required autocomplete="off">
+        </div>
+
+        <div class="mb-3">
+            <label  class="form-label">Ücret:</label>
+            <input asp-for="Ucret" class="form-control" id="Ucret" name="Ucret" required autocomplete="off">
+        </div>
+
+        <div class="mb-3">
+            <label  class="form-label">Açıklama:</label>
+            <textarea asp-for="Aciklama" class="form-control" id="Aciklama" name="Aciklama" rows="4" required autocomplete="off"></textarea>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ResimUrl"  class="form-label">Resim Ekle:</label>
+            <input type="file" name="file" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+    </form>
+</div>
+
+
+
